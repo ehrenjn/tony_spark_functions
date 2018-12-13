@@ -117,14 +117,6 @@ def setup(bot):
             await asyncio.sleep(1)
         while True:
             await play_random_playable()
-            await asyncio.sleep(int(random.random()*30*60))
+            await asyncio.sleep(int((random.random()+0.2)*30*60)) #add 0.2 so minimal time isn't 0
     bot.loop.create_task(background())
-
-
-'''
-from discord.ext import commands
-TOKEN = 
-bot = commands.Bot(command_prefix = '!', case_insensitive = False)
-setup(bot)
-bot.run(TOKEN)
-'''
+    
