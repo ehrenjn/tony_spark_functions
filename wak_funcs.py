@@ -7,6 +7,7 @@ import re
 import discord
 import asyncio
 from util import JSONStore
+import os
 
 
 STORAGE_FILE = 'wak_storage.json'
@@ -62,6 +63,12 @@ def setup(bot):
         await bot.change_presence(game = discord.Game(name = cmd))
         await ctx.send('added playable')
 
+    @bot.command()
+    async def restart(ctx, *args):
+        await ctx.send("Rebooting...")
+        await bot.close()
+        os.system(". ~/Python/tony_modules/pull_and_reboot.sh")
+        exit()
 
     async def play_random_playable():
         playables = storage['playables']
