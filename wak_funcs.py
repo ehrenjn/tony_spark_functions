@@ -66,12 +66,8 @@ def setup(bot):
 
     @bot.command()
     async def restart(ctx, *args):
-        await ctx.send("Rebooting...")
-        print("BEFORE")
-        await bot.close()
-        print("MIDDLE")
+        await ctx.send("Rebooting...") #I would bot.close() but then it tries to delete currently running corutines or something and throws an error so I ain't gonna bother
         os.system(". ~/Python/tony_modules/pull_and_reboot.sh")
-        print("AFTER")
         exit()
 
     async def play_random_playable():
