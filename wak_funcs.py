@@ -71,7 +71,7 @@ def setup(bot):
             os.system(". ~/Python/tony_modules/pull_and_reboot.sh")
             exit()
         else:
-            await ctx.send("Sorry, you can only restart in the bot-meta channel of the memechat server")
+            await ctx.send("Sorry, you can only restart in the bot-testing channel of the memechat server")
 
     async def play_random_playable():
         playables = storage['playables']
