@@ -6,7 +6,7 @@ import random
 import re
 import discord
 import asyncio
-from util import JSONStore
+from .util import JSONStore #relative import means this wak_funcs.py can only be used as part of the tony_modules package now
 import os
 
 
