@@ -66,9 +66,12 @@ def setup(bot):
 
     @bot.command()
     async def restart(ctx, *args):
-        await ctx.send("Rebooting...") #I would bot.close() but then it tries to cancel the ctx.send or something and throws an error which in turn stops the restart corutine so I ain't gonna bother
-        os.system(". ~/Python/tony_modules/pull_and_reboot.sh")
-        exit()
+        if ctx.channel.id == 513536262507069443:
+            await ctx.send("Rebooting...") #I would bot.close() but then it tries to cancel the ctx.send or something and throws an error which in turn stops the restart corutine so I ain't gonna bother
+            os.system(". ~/Python/tony_modules/pull_and_reboot.sh")
+            exit()
+        else:
+            await ctx.send("Sorry, you can only restart in the bot-meta channel of the memechat server")
 
     async def play_random_playable():
         playables = storage['playables']
