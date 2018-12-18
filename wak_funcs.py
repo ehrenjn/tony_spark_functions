@@ -66,7 +66,7 @@ def setup(bot):
 
     @bot.command()
     async def restart(ctx, *args):
-        await ctx.send("Rebooting...") #I would bot.close() but then it tries to delete currently running corutines or something and throws an error so I ain't gonna bother
+        await ctx.send("Rebooting...") #I would bot.close() but then it tries to cancel the ctx.send or something and throws an error which in turn stops the restart corutine so I ain't gonna bother
         os.system(". ~/Python/tony_modules/pull_and_reboot.sh")
         exit()
 
