@@ -8,9 +8,10 @@ import discord
 import asyncio
 from .util import JSONStore #relative import means this wak_funcs.py can only be used as part of the tony_modules package now
 import os
+from pathlib import Path
 
 
-STORAGE_FILE = 'wak_storage.json'
+STORAGE_FILE = str(Path().home()) + '/wak_storage.json' #just so I can test on windows 
 
 class WakStore(JSONStore):
     def __init__(self):
