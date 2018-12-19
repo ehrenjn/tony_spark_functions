@@ -9,6 +9,7 @@ import asyncio
 from .util import JSONStore #relative import means this wak_funcs.py can only be used as part of the tony_modules package now
 import os
 from pathlib import Path
+import io
 
 
 STORAGE_FILE = str(Path().home()) + '/wak_storage.json' #just so I can test on windows 
@@ -75,10 +76,15 @@ def setup(bot):
 
     @bot.command()
     async def history(ctx, *args):
-        total = 0
+        await ctx.send("Reading all messages in this channel (might take a while)...")
+        all_msgs = b''
+        msg_count = 0
         async for msg in ctx.history(limit = None):
-            total += 1
-        await ctx.send(str(total))
+            all_msgs += msg.content.encode() + b'\n'
+            msg_count += 1
+        pseudo_file = io.BytesIO(all_msgs)
+        message = "Found {} messages".format(msg_count)
+        await ctx.send(message, file = discord.File(pseudo_file, filename = "dump.txt"))
 
     async def play_random_playable():
         playables = storage['playables']
