@@ -73,6 +73,13 @@ def setup(bot):
         else:
             await ctx.send("Sorry, you can only restart in the bot-testing channel of the memechat server")
 
+    @bot.command()
+    async def history(ctx, *args):
+        total = 0
+        async for msg in ctx.history(limit = None):
+            total += 1
+        await ctx.send(str(total))
+
     async def play_random_playable():
         playables = storage['playables']
         if len(playables) > 0:
