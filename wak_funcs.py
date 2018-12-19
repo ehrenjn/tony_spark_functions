@@ -80,7 +80,7 @@ def setup(bot):
         all_msgs = b''
         msg_count = 0
         async for msg in ctx.history(limit = None):
-            all_msgs += msg.content.encode() + b'\n'
+            all_msgs = msg.content.encode() + b'\n' + all_msgs #reverse = True doesn't reverse message order properly so I just reverse the order myself
             msg_count += 1
         pseudo_file = io.BytesIO(all_msgs)
         message = "Found {} messages".format(msg_count)
