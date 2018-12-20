@@ -60,10 +60,13 @@ def setup(bot):
 
     @bot.command()
     async def play(ctx, *, cmd):
-        storage['playables'].append(cmd)
-        storage.update()
-        await bot.change_presence(game = discord.Game(name = cmd))
-        await ctx.send('added playable')
+        if len(cmd) <= 128:
+            storage['playables'].append(cmd)
+            storage.update()
+            await bot.change_presence(game = discord.Game(name = cmd))
+            await ctx.send('added playable')
+        else:
+            await ctx.send("Playable wasn't added because it was > 128 chars long")
 
     @bot.command()
     async def restart(ctx, *args):
