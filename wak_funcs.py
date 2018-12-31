@@ -80,13 +80,12 @@ def setup(bot):
     @bot.command()
     async def history(ctx, *args):
         await ctx.send("Reading all messages in this channel (might take a while)...")
-        all_msgs = b''
-        msg_count = 0
-        async for msg in ctx.history(limit = None):
-            all_msgs = msg.content.encode() + b'\n' + all_msgs #reverse = True doesn't reverse message order properly so I just reverse the order myself
-            msg_count += 1
-        pseudo_file = io.BytesIO(all_msgs)
-        message = "Found {} messages".format(msg_count)
+        all_msgs = []
+        async for msg in ctx.history(limit = None): #reverse = True doesn't reverse message order properly so I have reverse the order myself
+            new_bytes = msg.author.display_name.encode() + b': ' + msg.content.encode() #also the reason I'm building a list is because I don't think there's any way to use an async generator as a regular generator (ie, do something like (b'\n'.join(all_msgs) )
+            all_msgs.insert(0, new_bytes) #USE insert() TO PREPEND TO LISTS EFFICIENTLY
+        pseudo_file = io.BytesIO(b'\n'.join(all_msgs)) #WOULD BE NICE TO JUST DO pseuo_file.write() INSTEAD OF all_msgs.insert BUT MESSAGES HAVE TO BE REVERSED SO THIS IS PROBABLY THE BEST I CAN DO
+        message = "Found {} messages".format(len(all_msgs)) #len apparently constant time for lists
         await ctx.send(message, file = discord.File(pseudo_file, filename = "dump.txt"))
 
     async def play_random_playable():
