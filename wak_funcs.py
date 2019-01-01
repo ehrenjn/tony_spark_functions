@@ -12,7 +12,7 @@ from pathlib import Path
 import io
 
 
-STORAGE_FILE = os.path.join(os.environ['TONYROOT'], 'wak_storage.json')
+STORAGE_FILE = os.path.join(os.environ['TONYROOT'], 'files', 'wak_storage.json')
 
 class WakStore(JSONStore):
     def __init__(self):
